@@ -68,32 +68,50 @@
 }
 
 - (void)makeBackdrop {
-    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
+    NSString *baseURLStringLow = @"https://image.tmdb.org/t/p/w45";
+    NSString *baseURLStringHigh = @"https://image.tmdb.org/t/p/original";
+    
     NSString *backdropURLString = self.movie[@"backdrop_path"];
-    NSString *fullBackgropURLString = [baseURLString stringByAppendingString:backdropURLString];
-    NSURL *backdropURL = [NSURL URLWithString:fullBackgropURLString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:backdropURL];
+    
+    NSString *fullURLStringLow = [baseURLStringLow stringByAppendingString:backdropURLString];
+    NSURL *urlLow = [NSURL URLWithString:fullURLStringLow];
+    NSURLRequest *requestLow = [NSURLRequest requestWithURL:urlLow];
+    
+    NSString *fullURLStringHigh = [baseURLStringHigh stringByAppendingString:backdropURLString];
+    NSURL *urlHigh = [NSURL URLWithString:fullURLStringHigh];
+    NSURLRequest *requestHigh = [NSURLRequest requestWithURL:urlHigh];
+    
     __weak DetailsViewController *weakSelf = self;
-    [self.backdropView setImageWithURLRequest:request placeholderImage:nil
-                                    success:^(NSURLRequest *imageRequest, NSHTTPURLResponse *imageResponse, UIImage *image) {
-                                            
-                                            // imageResponse will be nil if the image is cached
-                                            if (imageResponse) {
-                                                NSLog(@"Image was NOT cached, fade in image");
-                                                weakSelf.backdropView.alpha = 0.0;
-                                                weakSelf.backdropView.image = image;
-                                                
-                                                //Animate UIImageView back to alpha 1 over 0.3sec
-                                                [UIView animateWithDuration:0.3 animations:^{
-                                                    weakSelf.backdropView.alpha = 1.0;
-                                                }];
-                                            }
-                                            else {
-                                                NSLog(@"Image was cached so just update the image");
-                                                weakSelf.backdropView.image = image;
-                                            }
-                                        }
-                                        failure:^(NSURLRequest *request, NSHTTPURLResponse * response, NSError *error) {}];
+    [self.backdropView setImageWithURLRequest:requestLow
+                          placeholderImage:nil
+                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *smallImage) {
+                                       
+                                       // smallImageResponse will be nil if the smallImage is already available
+                                       // in cache (might want to do something smarter in that case).
+                                       weakSelf.backdropView.alpha = 0.0;
+                                       weakSelf.backdropView.image = smallImage;
+                                       
+                                       [UIView animateWithDuration:0.3
+                                                        animations:^{
+                                                            
+                                                            weakSelf.backdropView.alpha = 1.0;
+                                                            
+                                                        } completion:^(BOOL finished) {
+                                                            // The AFNetworking ImageView Category only allows one request to be sent at a time
+                                                            // per ImageView. This code must be in the completion block.
+                                                            [weakSelf.backdropView setImageWithURLRequest:requestHigh
+                                                                                      placeholderImage:smallImage
+                                                                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage * largeImage) {
+                                                                                                   weakSelf.backdropView.image = largeImage;
+                                                                                               }
+                                                                                               failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                                                                   // do something for the failure condition of the large image request
+                                                                                                   // possibly setting the ImageView's image to a default image
+                                                                                               }];
+                                                        }];
+                                   }
+                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {}];
+
 }
 
 #pragma mark - Navigation
