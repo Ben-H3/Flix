@@ -105,8 +105,6 @@
     NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
     NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
     
-    // [cell.posterView setImageWithURL:posterURL];
-    
     NSURLRequest *request = [NSURLRequest requestWithURL:posterURL];
     __weak MovieCell *weakSelf = cell;
     [cell.posterView setImageWithURLRequest:request placeholderImage:nil

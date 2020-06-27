@@ -23,25 +23,77 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
-    
     // Get poster image
-    NSString *posterURLString = self.movie[@"poster_path"];
-    NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
-    NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
-    [self.posterView setImageWithURL:posterURL];
+    [self makePoster];
+    
     // Get backdrop image
-    NSString *backdropURLString = self.movie[@"backdrop_path"];
-    NSString *fullBackgropURLString = [baseURLString stringByAppendingString:backdropURLString];
-    NSURL *backdropURL = [NSURL URLWithString:fullBackgropURLString];
-    [self.backdropView setImageWithURL:backdropURL];
+    [self makeBackdrop];
+    
     // Set movie title
     self.titleLabel.text = self.movie[@"title"];
     self.synopsisLabel.text = self.movie[@"overview"];
     [self.titleLabel sizeToFit];
     [self.synopsisLabel sizeToFit];
     
+}
+
+- (void)makePoster {
+    // Get poster image
+    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
+    NSString *posterURLString = self.movie[@"poster_path"];
+    NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
+    NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:posterURL];
+    __weak DetailsViewController *weakSelf = self;
+    [self.posterView setImageWithURLRequest:request placeholderImage:nil
+                                    success:^(NSURLRequest *imageRequest, NSHTTPURLResponse *imageResponse, UIImage *image) {
+                                            
+                                            // imageResponse will be nil if the image is cached
+                                            if (imageResponse) {
+                                                NSLog(@"Image was NOT cached, fade in image");
+                                                weakSelf.posterView.alpha = 0.0;
+                                                weakSelf.posterView.image = image;
+                                                
+                                                //Animate UIImageView back to alpha 1 over 0.3sec
+                                                [UIView animateWithDuration:0.3 animations:^{
+                                                    weakSelf.posterView.alpha = 1.0;
+                                                }];
+                                            }
+                                            else {
+                                                NSLog(@"Image was cached so just update the image");
+                                                weakSelf.posterView.image = image;
+                                            }
+                                        }
+                                        failure:^(NSURLRequest *request, NSHTTPURLResponse * response, NSError *error) {}];
+}
+
+- (void)makeBackdrop {
+    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
+    NSString *backdropURLString = self.movie[@"backdrop_path"];
+    NSString *fullBackgropURLString = [baseURLString stringByAppendingString:backdropURLString];
+    NSURL *backdropURL = [NSURL URLWithString:fullBackgropURLString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:backdropURL];
+    __weak DetailsViewController *weakSelf = self;
+    [self.backdropView setImageWithURLRequest:request placeholderImage:nil
+                                    success:^(NSURLRequest *imageRequest, NSHTTPURLResponse *imageResponse, UIImage *image) {
+                                            
+                                            // imageResponse will be nil if the image is cached
+                                            if (imageResponse) {
+                                                NSLog(@"Image was NOT cached, fade in image");
+                                                weakSelf.backdropView.alpha = 0.0;
+                                                weakSelf.backdropView.image = image;
+                                                
+                                                //Animate UIImageView back to alpha 1 over 0.3sec
+                                                [UIView animateWithDuration:0.3 animations:^{
+                                                    weakSelf.backdropView.alpha = 1.0;
+                                                }];
+                                            }
+                                            else {
+                                                NSLog(@"Image was cached so just update the image");
+                                                weakSelf.backdropView.image = image;
+                                            }
+                                        }
+                                        failure:^(NSURLRequest *request, NSHTTPURLResponse * response, NSError *error) {}];
 }
 
 #pragma mark - Navigation

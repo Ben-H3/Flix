@@ -68,6 +68,43 @@
     [task resume];
 }
 
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    MovieCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MovieCollectionCell" forIndexPath:indexPath];
+    
+    NSDictionary *movie = self.movies[indexPath.item];
+    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
+    NSString *posterURLString = movie[@"poster_path"];
+    NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
+    NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:posterURL];
+    __weak MovieCollectionCell *weakSelf = cell;
+    [cell.posterView setImageWithURLRequest:request placeholderImage:nil
+                                    success:^(NSURLRequest *imageRequest, NSHTTPURLResponse *imageResponse, UIImage *image) {
+                                            
+                                            // imageResponse will be nil if the image is cached
+                                            if (imageResponse) {
+                                                NSLog(@"Image was NOT cached, fade in image");
+                                                weakSelf.posterView.alpha = 0.0;
+                                                weakSelf.posterView.image = image;
+                                                
+                                                //Animate UIImageView back to alpha 1 over 0.3sec
+                                                [UIView animateWithDuration:0.3 animations:^{
+                                                    weakSelf.posterView.alpha = 1.0;
+                                                }];
+                                            }
+                                            else {
+                                                NSLog(@"Image was cached so just update the image");
+                                                weakSelf.posterView.image = image;
+                                            }
+                                        }
+                                        failure:^(NSURLRequest *request, NSHTTPURLResponse * response, NSError *error) {}];
+    return cell;
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.movies.count;
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -79,23 +116,6 @@
     NSDictionary *movie = self.movies[indexPath.item];
     DetailsViewController *detailsViewController = [segue destinationViewController];
     detailsViewController.movie = movie;
-}
-
-- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    MovieCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MovieCollectionCell" forIndexPath:indexPath];
-    
-    NSDictionary *movie = self.movies[indexPath.item];
-    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
-    NSString *posterURLString = movie[@"poster_path"];
-    NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
-    NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
-    [cell.posterView setImageWithURL:posterURL];
-    
-    return cell;
-}
-
-- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.movies.count;
 }
 
 @end
