@@ -118,6 +118,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vFq-83-YIx">
+                                        <rect key="frame" x="8" y="117" width="99" height="169"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <segue destination="drR-q5-hMq" kind="show" id="Rgz-xC-0qH"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <viewLayoutGuide key="contentLayoutGuide" id="qoC-4C-awM"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="rl5-0E-F6D"/>
@@ -136,7 +143,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H3I-tQ-4s2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1219" y="717"/>
+            <point key="canvasLocation" x="1218.840579710145" y="716.51785714285711"/>
         </scene>
         <!--Movies-->
         <scene sceneID="aGA-qT-UMq">
@@ -245,8 +252,38 @@
             </objects>
             <point key="canvasLocation" x="317" y="40"/>
         </scene>
+        <!--Web View Controller-->
+        <scene sceneID="U3H-QR-Oi3">
+            <objects>
+                <viewController id="drR-q5-hMq" customClass="WebViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LJk-Yi-XWM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="355-uY-Yrf">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="fe8-1M-qX0"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Qey-TX-3sj"/>
+                    <connections>
+                        <outlet property="webView" destination="355-uY-Yrf" id="NlT-IQ-YxL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A0K-Fu-Vk1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1226.0869565217392" y="49.553571428571423"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="9En-tx-GXE"/>
+        <segue reference="eW6-SB-d4C"/>
     </inferredMetricsTieBreakers>
 </document>

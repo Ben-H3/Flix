@@ -21,6 +21,7 @@
 		51D5884224A3F942003474DD /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D5884124A3F942003474DD /* MovieCell.m */; };
 		51DBFE2724A40A59007863BE /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51DBFE2624A40A59007863BE /* DetailsViewController.m */; };
 		51FC083024A68DF500D49BB2 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51FC082F24A68DF500D49BB2 /* WebViewController.m */; };
+		51FC083224A6990F00D49BB2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51FC083124A6990F00D49BB2 /* WebKit.framework */; };
 		79F306F98ED6A0098C009BDF /* Pods_Flix_FlixUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51D2EB1C883E0680AEE7D4C5 /* Pods_Flix_FlixUITests.framework */; };
 		8A7C1459283F9B36B34ED881 /* Pods_Flix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 133F69C2F23D3423FA2A532F /* Pods_Flix.framework */; };
 		B7BDAB24F4E8905CD0BE1E16 /* Pods_FlixTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2754574672F3240A19AC12EF /* Pods_FlixTests.framework */; };
@@ -77,6 +78,7 @@
 		51DBFE2624A40A59007863BE /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		51FC082E24A68DF500D49BB2 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		51FC082F24A68DF500D49BB2 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		51FC083124A6990F00D49BB2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6C5630FB6238673EEC41ADDA /* Pods-FlixTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlixTests.release.xcconfig"; path = "Target Support Files/Pods-FlixTests/Pods-FlixTests.release.xcconfig"; sourceTree = "<group>"; };
 		9DD7110B18B0AF3FA168B660 /* Pods-Flix-FlixUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flix-FlixUITests.release.xcconfig"; path = "Target Support Files/Pods-Flix-FlixUITests/Pods-Flix-FlixUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A1091A038C6195F8D4B12627 /* Pods-Flix.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flix.debug.xcconfig"; path = "Target Support Files/Pods-Flix/Pods-Flix.debug.xcconfig"; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51FC083224A6990F00D49BB2 /* WebKit.framework in Frameworks */,
 				8A7C1459283F9B36B34ED881 /* Pods_Flix.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,6 +222,7 @@
 		900488D9E7532CD129681C7F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51FC083124A6990F00D49BB2 /* WebKit.framework */,
 				133F69C2F23D3423FA2A532F /* Pods_Flix.framework */,
 				51D2EB1C883E0680AEE7D4C5 /* Pods_Flix_FlixUITests.framework */,
 				2754574672F3240A19AC12EF /* Pods_FlixTests.framework */,
