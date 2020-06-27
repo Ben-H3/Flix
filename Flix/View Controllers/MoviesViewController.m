@@ -56,7 +56,7 @@
     shadow.shadowColor = [[UIColor grayColor] colorWithAlphaComponent:0.5];
     shadow.shadowOffset = CGSizeMake(2, 2);
     shadow.shadowBlurRadius = 4;
-    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:27],
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:24],
                                           NSForegroundColorAttributeName : UIColor.whiteColor,
                                           NSShadowAttributeName : shadow};
 }
@@ -93,9 +93,6 @@
                }
                // Call data methods again as data may have changed
                [self.tableView reloadData];
-               // TODO: Get the array of movies
-               // TODO: Store the movies in a property to use elsewhere
-               // TODO: Reload your table view data
            }
         [self.refreshControl endRefreshing];
         [self.activityIndicator stopAnimating];
@@ -151,9 +148,9 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    
+
     if (searchText.length != 0) {
-        
+
         NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
             return [evaluatedObject containsString:searchText];
         }];
@@ -171,9 +168,9 @@
     else {
         self.filteredData = self.movies;
     }
-    
+
     [self.tableView reloadData];
- 
+
 }
 
 #pragma mark - Navigation
@@ -183,7 +180,7 @@
     
     UITableViewCell *tappedCell = sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-    NSDictionary *movie = self.movies[indexPath.row];
+    NSDictionary *movie = self.filteredData[indexPath.row];
     DetailsViewController *detailsViewController = [segue destinationViewController];
     detailsViewController.movie = movie;
     
