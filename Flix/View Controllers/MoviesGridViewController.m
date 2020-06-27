@@ -25,17 +25,33 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
+    [self configureNavBar];
+    
     [self fetchMovies];
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
     
-    layout.minimumInteritemSpacing = 0;
-    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 10;
+    layout.minimumLineSpacing = 10;
     
     CGFloat postersPerLine = 2;
     CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine - 1)) / postersPerLine;
     CGFloat itemHeight = itemWidth * 1.5;
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+}
+
+- (void)configureNavBar {
+    self.navigationItem.title = @"Movies";
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    navigationBar.tintColor = [UIColor colorWithRed:11.0/255.0 green:148.0/255.0 blue:214.0/255.0 alpha:1];
+    navigationBar.barTintColor = [UIColor colorWithRed:14/255.0 green:77/255.0 blue:146/255.0 alpha:1.000];
+    NSShadow *shadow = [NSShadow new];
+    shadow.shadowColor = [[UIColor grayColor] colorWithAlphaComponent:0.5];
+    shadow.shadowOffset = CGSizeMake(2, 2);
+    shadow.shadowBlurRadius = 4;
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:27],
+                                          NSForegroundColorAttributeName : UIColor.whiteColor,
+                                          NSShadowAttributeName : shadow};
 }
 
 - (void)fetchMovies {

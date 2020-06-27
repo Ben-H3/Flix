@@ -220,7 +220,7 @@
         <scene sceneID="QtS-fR-bx2">
             <objects>
                 <navigationController id="MdS-mx-M5a" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Collection" id="zLQ-kg-s7K"/>
+                    <tabBarItem key="tabBarItem" title="Collection" image="folder.badge.plus" catalog="system" id="zLQ-kg-s7K"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HTW-f2-IBs">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -237,7 +237,7 @@
         <scene sceneID="qA8-un-Hdg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lqh-lq-V53" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Now Playing" id="KkB-pH-m7z"/>
+                    <tabBarItem key="tabBarItem" title="Now Playing" image="film" catalog="system" id="KkB-pH-m7z"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Y8M-Rj-YoL">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -286,4 +286,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="9En-tx-GXE"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="film" catalog="system" width="128" height="93"/>
+        <image name="folder.badge.plus" catalog="system" width="128" height="86"/>
+    </resources>
 </document>

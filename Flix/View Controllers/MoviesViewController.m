@@ -35,14 +35,30 @@
     self.searchBar.delegate = self;
     
     [self.activityIndicator startAnimating];
+    [self configureNavBar];
     
     // Do any additional setup after loading the view.
     [self fetchMovies];
+    
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
     
+}
+
+- (void)configureNavBar {
+    self.navigationItem.title = @"Movies";
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    navigationBar.tintColor = [UIColor colorWithRed:11.0/255.0 green:148.0/255.0 blue:214.0/255.0 alpha:1];
+    navigationBar.barTintColor = [UIColor colorWithRed:14/255.0 green:77/255.0 blue:146/255.0 alpha:1.000];
+    NSShadow *shadow = [NSShadow new];
+    shadow.shadowColor = [[UIColor grayColor] colorWithAlphaComponent:0.5];
+    shadow.shadowOffset = CGSizeMake(2, 2);
+    shadow.shadowBlurRadius = 4;
+    navigationBar.titleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:27],
+                                          NSForegroundColorAttributeName : UIColor.whiteColor,
+                                          NSShadowAttributeName : shadow};
 }
 
 - (void)fetchMovies {
@@ -99,6 +115,10 @@
     NSDictionary *movie = self.filteredData[indexPath.row];
     cell.titleLabel.text = movie[@"title"];
     cell.synopsisCell.text = movie[@"overview"];
+    
+    UIView *backgroundView = [[UIView alloc] init];
+    backgroundView.backgroundColor = [UIColor colorWithRed:252.0/255.0 green:194.0/255.0 blue:0 alpha:1.0];
+    cell.selectedBackgroundView = backgroundView;
     
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
     NSString *posterURLString = movie[@"poster_path"];
